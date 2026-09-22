@@ -1,0 +1,102 @@
+/*
+ * Tokens de design — transcritos do style guide da Figma "Pokédex (Community)" (ADR-007).
+ * Cor de tipo é dado de design: componentes leem `--type-<nome>` e `--type-<nome>-ink`,
+ * nunca decidem cor com `if`.
+ */
+:root {
+  /* Identidade */
+  --color-primary: #dc0a2d;
+  --color-primary-ink: #ffffff;
+
+  /* Escala de cinza */
+  --gray-dark: #212121;
+  --gray-medium: #666666;
+  --gray-light: #e0e0e0;
+  --gray-background: #efefef;
+  --white: #ffffff;
+
+  /* Cores dos 18 tipos (fundo do chip / fundo do detalhe) */
+  --type-normal: #aaa67f;
+  --type-fighting: #c12239;
+  --type-flying: #a891ec;
+  --type-poison: #a43e9e;
+  --type-ground: #dec16b;
+  --type-rock: #b69e31;
+  --type-bug: #a7b723;
+  --type-ghost: #70559b;
+  --type-steel: #b7b9d0;
+  --type-fire: #f57d31;
+  --type-water: #6493eb;
+  --type-grass: #74cb48;
+  --type-electric: #f9cf30;
+  --type-psychic: #fb5584;
+  --type-ice: #9ad6df;
+  --type-dragon: #7037ff;
+  --type-dark: #75574c;
+  --type-fairy: #e69eac;
+
+  /*
+   * Cor do texto sobre cada tipo. A Figma usa branco em todos; branco só alcança 3:1 sobre os
+   * fundos escuros, então os claros recebem `--gray-dark` para o chip continuar legível.
+   */
+  --type-normal-ink: var(--gray-dark);
+  --type-fighting-ink: var(--white);
+  --type-flying-ink: var(--gray-dark);
+  --type-poison-ink: var(--white);
+  --type-ground-ink: var(--gray-dark);
+  --type-rock-ink: var(--gray-dark);
+  --type-bug-ink: var(--gray-dark);
+  --type-ghost-ink: var(--white);
+  --type-steel-ink: var(--gray-dark);
+  --type-fire-ink: var(--gray-dark);
+  --type-water-ink: var(--white);
+  --type-grass-ink: var(--gray-dark);
+  --type-electric-ink: var(--gray-dark);
+  --type-psychic-ink: var(--white);
+  --type-ice-ink: var(--gray-dark);
+  --type-dragon-ink: var(--white);
+  --type-dark-ink: var(--white);
+  --type-fairy-ink: var(--gray-dark);
+
+  /* Tipografia (Poppins); corpo mínimo de 12 px por legibilidade em web */
+  --font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-headline: 700 1.5rem/2rem var(--font-family); /* 24/32 */
+  --font-subtitle-1: 700 0.875rem/1rem var(--font-family); /* 14/16 */
+  --font-subtitle-2: 700 0.75rem/1rem var(--font-family); /* 12/16 */
+  --font-subtitle-3: 700 0.75rem/1rem var(--font-family); /* 10→12/16 */
+  --font-body-1: 400 0.875rem/1.25rem var(--font-family); /* 14/20 */
+  --font-body-2: 400 0.75rem/1rem var(--font-family); /* 12/16 */
+  --font-body-3: 400 0.75rem/1rem var(--font-family); /* 10→12/16 */
+  --font-caption: 400 0.625rem/0.75rem var(--font-family); /* 8→10/12 */
+
+  /* Espaçamento (base 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Raios */
+  --radius-chip: 0.5rem;
+  --radius-card: 0.5rem;
+  --radius-popup: 0.75rem;
+  --radius-pill: 1rem;
+  --radius-bar: 1.25rem;
+  --radius-round: 999px;
+
+  /* Elevação (Figma: drop shadow 2 dp / 6 dp, inner shadow 2 dp) */
+  --shadow-dp2: 0 1px 3px 1px rgb(0 0 0 / 0.2);
+  --shadow-dp6: 0 3px 12px 3px rgb(0 0 0 / 0.2);
+  --shadow-inner: inset 0 1px 3px 1px rgb(0 0 0 / 0.25);
+
+  /* Alvo de toque mínimo (§7.7) */
+  --tap-target: 2.75rem; /* 44 px */
+
+  /* Largura máxima do conteúdo em desktop */
+  --content-max-width: 64rem;
+
+  /* Transições */
+  --duration-fast: 120ms;
+}

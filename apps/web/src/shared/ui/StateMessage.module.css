@@ -1,0 +1,29 @@
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  color: var(--gray-dark);
+}
+
+.icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--gray-light);
+}
+
+.title {
+  font: var(--font-subtitle-1);
+}
+
+.description {
+  font: var(--font-body-2);
+  color: var(--gray-medium);
+  max-width: 28rem;
+}
+
+.action {
+  margin-top: var(--space-2);
+}

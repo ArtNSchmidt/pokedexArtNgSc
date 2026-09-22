@@ -1,0 +1,15 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 1.25rem; /* 20 px, Figma */
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-chip);
+  font: var(--font-subtitle-3);
+  white-space: nowrap;
+}
+
+.md {
+  height: 1.75rem;
+  padding: 0 var(--space-3);
+  font: var(--font-subtitle-2);
+}
