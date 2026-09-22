@@ -17,8 +17,8 @@ export interface Cache<T> {
 }
 
 /**
- * Porta de leitura da Pokédex (ADR-006). Os casos de uso dependem desta interface; quem fala com
- * `pokeapi.co` é a implementação em `apps/api/src/infrastructure`.
+ * Porta de leitura da Pokédex (ADR-006). Os casos de uso dependem desta interface; quem fala com a PokéAPI é
+ * a implementação em `apps/api/src/infrastructure`.
  */
 export interface PokemonRepository {
   listPokemon(query: ListQuery): Promise<PokemonListPage>;
