@@ -24,9 +24,9 @@ export const apiErrorSchema = z.object({
 export type ApiError = z.infer<typeof apiErrorSchema>;
 
 /**
- * Status HTTP de cada código, para o error handler (A4) e o cliente (A5) concordarem.
- * `ROUTE_NOT_FOUND` foi acrescentado a pedido do A4 (`docs/handoff/requests.md`): §6.3 não cobria
- * rota inexistente, e responder `POKEMON_NOT_FOUND` para `/nope` seria mentira.
+ * Status HTTP de cada código, para o error handler do servidor e o cliente concordarem.
+ * `ROUTE_NOT_FOUND` não estava em §6.3, que só previa erros de recurso: sem ele, `/nope` teria de
+ * responder `POKEMON_NOT_FOUND` — uma mentira sobre o que o cliente pediu.
  */
 export const HTTP_STATUS_BY_ERROR_CODE: Readonly<Record<ApiErrorCode, 400 | 404 | 500 | 502>> = {
   VALIDATION_ERROR: 400,

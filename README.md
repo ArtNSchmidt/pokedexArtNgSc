@@ -55,11 +55,10 @@ apps/web ──┐
 apps/api ──┘
 ```
 
-As decisões estão registradas em [`docs/adr/`](docs/adr/). A especificação completa de execução
-está em [`docs/AGENTS.md`](docs/AGENTS.md), e o que cada etapa entregou, em
-[`docs/handoff/`](docs/handoff/). A rodada de revisão adversarial que fechou o projeto — bugs
-encontrados, correções e o que foi examinado e mantido — está em
-[`docs/handoff/revisao-final.md`](docs/handoff/revisao-final.md).
+As nove decisões que moldaram o projeto — cada uma com o contexto, a alternativa descartada e o
+preço que se pagou por ela — estão em [`docs/adr/`](docs/adr/). A especificação de execução que
+governou a construção, e para cujas seções (`§N.N`) os comentários do código apontam, está em
+[`docs/AGENTS.md`](docs/AGENTS.md).
 
 ## Deploy
 
@@ -105,14 +104,3 @@ curl -s "localhost:3333/api/v1/pokemon?generation=generation-i" | node -e "conso
 curl -s localhost:3333/api/v1/types | node -e "console.log(JSON.parse(require('fs').readFileSync(0)).length)"        # 18
 curl -s localhost:3333/api/v1/generations | node -e "console.log(JSON.parse(require('fs').readFileSync(0)).length)"  # 9
 ```
-
-## Status
-
-| Onda | Agente                                               | Estado    |
-| ---- | ---------------------------------------------------- | --------- |
-| 0    | A0 — fundação e tooling                              | concluído |
-| 1    | A1 — contratos                                       | concluído |
-| 2    | A2 — domínio · A3 — adapter PokéAPI · A5 — shell web | concluído |
-| 3    | A4 — API HTTP · A6 — telas                           | concluído |
-| 4    | integração e verificação final                       | concluído |
-| —    | revisão adversarial e correções                      | concluído |
