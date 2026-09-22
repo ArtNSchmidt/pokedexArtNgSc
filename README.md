@@ -75,6 +75,12 @@ respondem `404`. O porquê está em
 
 Trocar o backend de endereço é editar o `destination` do primeiro rewrite — o bundle não muda.
 
+O plano free do Render hiberna a instância após 15 min sem tráfego. O workflow
+[`keepalive.yml`](.github/workflows/keepalive.yml) faz `GET /api/v1/health` a cada 10 min para
+manter o BFF de pé, com a folga que o atraso da fila do Actions exige —
+[ADR-009](docs/adr/0009-keep-alive-do-bff-por-github-actions.md) explica por que 16 min não
+serviria e o que isso custa nos dois tetos de cota envolvidos.
+
 ## Limitações conhecidas
 
 - **Textos em inglês.** A PokéAPI não tem tradução para português (`pokemon-species/1` tem 28
