@@ -1,0 +1,217 @@
+/*
+ * A cor do tipo cobre a tela inteira (Figma): a margem negativa anula os 4 px do layout e o
+ * padding os devolve por dentro, para o card branco manter a moldura.
+ */
+.page,
+.neutral {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100dvh;
+  margin: calc(-1 * var(--space-1));
+  padding: var(--space-1);
+  overflow: hidden;
+  color: var(--color-primary-ink);
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-2);
+}
+
+.back {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-round);
+  color: inherit;
+}
+
+.back::before {
+  content: '';
+  position: absolute;
+  inset: calc((2rem - var(--tap-target)) / 2);
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.number {
+  margin-left: auto;
+}
+
+.watermark {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 13rem;
+  height: 13rem;
+  color: var(--white);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.artworkRow {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+  margin-bottom: -3.5rem;
+}
+
+.artwork {
+  width: 12.5rem;
+  height: 12.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.15));
+}
+
+.neighbor,
+.neighborSpacer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-round);
+  color: inherit;
+}
+
+.neighbor::before {
+  content: '';
+  position: absolute;
+  inset: calc((2rem - var(--tap-target)) / 2);
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+  padding: 4rem var(--space-5) var(--space-6);
+  color: var(--gray-dark);
+}
+
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.cry {
+  margin-left: var(--space-2);
+}
+
+.sectionTitle {
+  text-align: center;
+}
+
+/* Sobre: três colunas separadas por bordas, como na Figma. */
+.specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: 0 var(--space-2);
+}
+
+.spec + .spec {
+  border-left: 1px solid var(--gray-light);
+}
+
+.specValue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 2rem;
+  font: var(--font-body-2);
+  text-align: center;
+}
+
+.specValue svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--gray-medium);
+}
+
+.specLine {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.specLabel {
+  font: var(--font-caption);
+  color: var(--gray-medium);
+}
+
+.flavor {
+  font: var(--font-body-2);
+  text-align: left;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  margin: 0;
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.metaLabel {
+  font: var(--font-caption);
+  color: var(--gray-medium);
+}
+
+.metaValue {
+  margin: 0;
+  font: var(--font-subtitle-2);
+}
+
+.skeletonOnColor {
+  background: rgb(255 255 255 / 0.35);
+}
+
+@media (min-width: 640px) {
+  .specValue {
+    flex-direction: row;
+  }
+
+  .flavor {
+    max-width: 40rem;
+  }
+}

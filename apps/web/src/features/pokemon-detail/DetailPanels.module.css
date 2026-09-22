@@ -1,0 +1,144 @@
+.muted {
+  font: var(--font-body-2);
+  color: var(--gray-medium);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-chip);
+  background: var(--gray-background);
+  color: var(--gray-medium);
+  font: var(--font-caption);
+  line-height: 1rem;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Fraquezas */
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.group {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  align-items: start;
+  gap: var(--space-2);
+}
+
+.groupLabel {
+  font: var(--font-subtitle-2);
+  color: var(--gray-medium);
+  line-height: 1.25rem;
+}
+
+.groupBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+}
+
+/* Habilidades */
+.abilities {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.abilityHeading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.abilityEffect {
+  margin-top: var(--space-1);
+  font: var(--font-body-2);
+  color: var(--gray-medium);
+}
+
+/* Evolução */
+.branches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.branch {
+  display: grid;
+  grid-template-columns: 5rem 1fr 5rem;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1 1 100%;
+  padding: var(--space-2);
+  border-radius: var(--radius-card);
+  background: var(--gray-background);
+}
+
+@media (min-width: 640px) {
+  .branch {
+    flex: 1 1 calc(50% - var(--space-2));
+  }
+}
+
+.condition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  text-align: center;
+  font: var(--font-caption);
+  color: var(--gray-medium);
+}
+
+.conditionArrow {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--gray-medium);
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-1);
+  border-radius: var(--radius-card);
+  font: var(--font-caption);
+  color: var(--gray-dark);
+  text-align: center;
+}
+
+.stage img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+}
+
+.stageCurrent {
+  background: var(--white);
+  box-shadow: var(--shadow-dp2);
+}
+
+/* Nomes longos (Charmander, Meowscarada) quebram em até duas linhas em vez de serem cortados. */
+.stageName {
+  max-width: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow-wrap: anywhere;
+}

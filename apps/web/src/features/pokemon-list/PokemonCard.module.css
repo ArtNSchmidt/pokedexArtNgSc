@@ -1,0 +1,53 @@
+.card {
+  position: relative;
+  overflow: hidden;
+}
+
+.link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 6.75rem; /* 108 px, Figma */
+  padding: var(--space-1) var(--space-2) var(--space-2);
+  border-radius: var(--radius-card);
+}
+
+.link:focus-visible {
+  outline-offset: -2px;
+}
+
+.number {
+  align-self: flex-end;
+  font: var(--font-caption);
+  color: var(--gray-medium);
+}
+
+.image {
+  position: relative;
+  z-index: 1;
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: contain;
+}
+
+.name {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: var(--font-body-3);
+  color: var(--gray-dark);
+  text-align: center;
+}
+
+/* Faixa cinza de 44 px atrás da metade inferior da imagem e do nome. */
+.band {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2.75rem;
+  border-radius: 7px;
+  background: var(--gray-background);
+}

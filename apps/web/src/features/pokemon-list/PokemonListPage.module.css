@@ -1,0 +1,54 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--space-2);
+  color: var(--color-primary-ink);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) 0;
+}
+
+.logo {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-1) var(--space-3) var(--space-3);
+}
+
+.content {
+  flex: 1;
+  padding: var(--space-3);
+  color: var(--gray-dark);
+}
+
+/*
+ * 3 colunas em 360 px (cards de 104 px, gap 8), mais no desktop, sem breakpoint manual (ADR-007).
+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  transition: opacity var(--duration-fast);
+}
+
+.stale {
+  opacity: 0.6;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    gap: var(--space-3);
+  }
+}

@@ -1,0 +1,15 @@
+.anchor {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.dot {
+  position: absolute;
+  top: 0.125rem;
+  right: 0.125rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-round);
+  background: var(--color-primary);
+  border: 1px solid var(--white);
+}
