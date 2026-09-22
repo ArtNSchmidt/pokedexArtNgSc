@@ -1,0 +1,47 @@
+{
+  "id": 34,
+  "name": "chlorophyll",
+  "is_main_series": true,
+  "generation": {
+    "name": "generation-iii",
+    "url": "https://pokeapi.co/api/v2/generation/3/"
+  },
+  "names": [
+    {
+      "name": "Chlorophyll",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    }
+  ],
+  "effect_entries": [
+    {
+      "effect": "La Vitesse de ce Pokémon est doublée sous soleil intense.\n\nCe bonus ne compte pas comme une modification de stat.",
+      "short_effect": "Double la Vitesse sous le soleil intense.",
+      "language": {
+        "name": "fr",
+        "url": "https://pokeapi.co/api/v2/language/5/"
+      }
+    },
+    {
+      "effect": "Während starkem Sonnenlicht ist die Initiative eines Pokémon mit dieser Fähigkeit doppelt so hoch wie normal.\n\nDieser Bonus zählt nicht als Statusveränderung.",
+      "short_effect": "Verdoppelt die Initiative während starkem Sonnenlicht.",
+      "language": {
+        "name": "de",
+        "url": "https://pokeapi.co/api/v2/language/6/"
+      }
+    },
+    {
+      "effect": "This Pokémon's Speed is doubled during strong sunlight.\n\nThis bonus does not count as a stat modifier.",
+      "short_effect": "Doubles Speed during strong sunlight.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    }
+  ],
+  "pokemon": [],
+  "flavor_text_entries": [],
+  "effect_changes": []
+}

@@ -1,0 +1,47 @@
+{
+  "id": 66,
+  "name": "blaze",
+  "is_main_series": true,
+  "generation": {
+    "name": "generation-iii",
+    "url": "https://pokeapi.co/api/v2/generation/3/"
+  },
+  "names": [
+    {
+      "name": "Blaze",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    }
+  ],
+  "effect_entries": [
+    {
+      "effect": "Quand ce Pokémon a 1/3 de ses PV restants ou moins, ses capacités de type Feu infligent 1.5× plus de dégâts réguliers.",
+      "short_effect": "Renforce les capacités Feu pour infliger 1.5× de dégâts à 1/3 des PV max ou moins.",
+      "language": {
+        "name": "fr",
+        "url": "https://pokeapi.co/api/v2/language/5/"
+      }
+    },
+    {
+      "effect": "Wenn ein Pokémon mit dieser Fähigkeit nur noch 1/3 seiner maximalen KP oder weniger hat, werden all seine Feuer Attacken verstärkt, so dass sie 1,5× so viel Regulärer Schaden anrichten wie sonst.",
+      "short_effect": "Erhöht den Schaden von Feuer Attacken um 50% wenn nur noch 1/3 der maximalen KP oder weniger übrig sind.",
+      "language": {
+        "name": "de",
+        "url": "https://pokeapi.co/api/v2/language/6/"
+      }
+    },
+    {
+      "effect": "When this Pokémon has 1/3 or less of its HP remaining, its Fire-type moves inflict 1.5× as much regular damage.",
+      "short_effect": "Strengthens Fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    }
+  ],
+  "pokemon": [],
+  "flavor_text_entries": [],
+  "effect_changes": []
+}

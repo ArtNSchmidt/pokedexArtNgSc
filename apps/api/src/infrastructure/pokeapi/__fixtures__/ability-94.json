@@ -1,0 +1,47 @@
+{
+  "id": 94,
+  "name": "solar-power",
+  "is_main_series": true,
+  "generation": {
+    "name": "generation-iv",
+    "url": "https://pokeapi.co/api/v2/generation/4/"
+  },
+  "names": [
+    {
+      "name": "Solar Power",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    }
+  ],
+  "effect_entries": [
+    {
+      "effect": "Sous soleil intense, ce Pokémon a 1.5× son Attaque Spéciale mais subit 1/8 de ses PV maximum en dégâts après chaque tour.",
+      "short_effect": "Augmente l'Attaque Spéciale de 1.5× mais coûte 1/8 des PV max après chaque tour sous soleil intense.",
+      "language": {
+        "name": "fr",
+        "url": "https://pokeapi.co/api/v2/language/5/"
+      }
+    },
+    {
+      "effect": "Während starkem Sonnenlicht, wird der Spezialangriff von Pokémon mit dieser Fähigkeit um 50% erhöht, dafür erleidet es 1/8 seiner maximalen KP Schaden am Ende der Runde.",
+      "short_effect": "Erhöht den Spezialangriff um 50% aber zieht jede Runde 1/8 der max KP ab während starkem Sonnenlicht.",
+      "language": {
+        "name": "de",
+        "url": "https://pokeapi.co/api/v2/language/6/"
+      }
+    },
+    {
+      "effect": "During strong sunlight, this Pokémon has 1.5× its Special Attack but takes 1/8 of its maximum HP in damage after each turn.",
+      "short_effect": "Increases Special Attack to 1.5× but costs 1/8 max HP after each turn during strong sunlight.",
+      "language": {
+        "name": "en",
+        "url": "https://pokeapi.co/api/v2/language/9/"
+      }
+    }
+  ],
+  "pokemon": [],
+  "flavor_text_entries": [],
+  "effect_changes": []
+}
