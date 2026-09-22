@@ -1,0 +1,29 @@
+{
+  "name": "@pokedex/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "BFF Fastify sobre a PokéAPI v2: agrega 6 endpoints, projeta o contrato e cacheia por 24 h",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "build": "tsc -b tsconfig.build.json",
+    "typecheck": "tsc -b tsconfig.build.json && tsc -p tsconfig.json",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.3.0",
+    "@pokedex/contracts": "workspace:*",
+    "@pokedex/domain": "workspace:*",
+    "fastify": "^5.12.5",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
+  }
+}

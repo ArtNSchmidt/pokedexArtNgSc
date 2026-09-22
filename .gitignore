@@ -1,0 +1,19 @@
+# dependências e artefatos
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.vite/
+
+# segredos e ambiente (não há segredo neste projeto; se aparecer, é erro)
+.env
+.env.*
+!.env.example
+
+# IDE pessoal e sistema
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+*.log
