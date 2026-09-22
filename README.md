@@ -56,7 +56,10 @@ apps/api ──┘
 ```
 
 As decisões estão registradas em [`docs/adr/`](docs/adr/). A especificação completa de execução
-está em [`docs/AGENTS.md`](docs/AGENTS.md).
+está em [`docs/AGENTS.md`](docs/AGENTS.md), e o que cada etapa entregou, em
+[`docs/handoff/`](docs/handoff/). A rodada de revisão adversarial que fechou o projeto — bugs
+encontrados, correções e o que foi examinado e mantido — está em
+[`docs/handoff/revisao-final.md`](docs/handoff/revisao-final.md).
 
 ## Limitações conhecidas
 
@@ -92,3 +95,4 @@ curl -s localhost:3333/api/v1/generations | node -e "console.log(JSON.parse(requ
 | 2    | A2 — domínio · A3 — adapter PokéAPI · A5 — shell web | concluído |
 | 3    | A4 — API HTTP · A6 — telas                           | concluído |
 | 4    | integração e verificação final                       | concluído |
+| —    | revisão adversarial e correções                      | concluído |
