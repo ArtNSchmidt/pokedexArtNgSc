@@ -17,3 +17,9 @@ coverage/
 .DS_Store
 Thumbs.db
 *.log
+
+# registros de processo: dizem como o projeto foi construído, não o que ele é.
+# As decisões que sobrevivem à construção estão em docs/adr/ e continuam versionadas.
+docs/handoff/
+docs/*.png
+docs/*.docx
