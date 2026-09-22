@@ -91,4 +91,4 @@ curl -s localhost:3333/api/v1/generations | node -e "console.log(JSON.parse(requ
 | 1    | A1 — contratos                                       | concluído |
 | 2    | A2 — domínio · A3 — adapter PokéAPI · A5 — shell web | concluído |
 | 3    | A4 — API HTTP · A6 — telas                           | concluído |
-| 4    | integração e verificação final                       | pendente  |
+| 4    | integração e verificação final                       | concluído |
