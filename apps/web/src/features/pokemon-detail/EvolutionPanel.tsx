@@ -1,6 +1,6 @@
 import type { EvolutionStage, EvolutionStep, PokemonSummary } from '@pokedex/contracts';
 import { Link } from 'react-router-dom';
-import { paths } from '../../app/router';
+import { paths } from '../../shared/routes';
 import { humanizeSlug } from '../../shared/format';
 import { ChevronRightIcon, cx } from '../../shared/ui';
 import { describeEvolutionStep } from './describeEvolutionStep';

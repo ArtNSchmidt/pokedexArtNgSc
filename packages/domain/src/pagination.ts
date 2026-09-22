@@ -9,11 +9,11 @@ export interface Page<T> {
 /**
  * Paginação local sobre uma lista já filtrada (ADR-003). Página além do fim devolve `items` vazio
  * mantendo `page` e `total`, para a UI explicar "página 7 de 2" em vez de quebrar. Valores abaixo
- * de 1 são saturados em 1: a função é total.
+ * de 1, fracionários ou não numéricos são saturados em 1: a função é total (§5.3).
  */
 export function paginate<T>(items: readonly T[], page: number, pageSize: number): Page<T> {
-  const size = Math.max(1, Math.floor(pageSize));
-  const current = Math.max(1, Math.floor(page));
+  const size = toPositiveInteger(pageSize);
+  const current = toPositiveInteger(page);
   const total = items.length;
   const start = (current - 1) * size;
 
@@ -24,4 +24,9 @@ export function paginate<T>(items: readonly T[], page: number, pageSize: number)
     total,
     totalPages: Math.ceil(total / size),
   };
+}
+
+/** `NaN` e `Infinity` viram 1: sem isso o `page` do JSON sairia `null` e a UI mostraria nada. */
+function toPositiveInteger(value: number): number {
+  return Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 1;
 }

@@ -1,5 +1,5 @@
 export { Badge } from './Badge';
-export { Button, IconLink } from './Button';
+export { Button } from './Button';
 export { Card } from './Card';
 export { cx } from './cx';
 export { EmptyState } from './EmptyState';

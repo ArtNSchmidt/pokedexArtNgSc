@@ -14,11 +14,14 @@ const STAT_LABELS: Readonly<Record<StatName, string>> = {
 
 interface StatsPanelProps {
   readonly stats: readonly StatValue[];
+  /** Cor viva do tipo, para o preenchimento da barra. */
   readonly color: string;
+  /** Variante escura do tipo, para o rótulo ser legível sobre o card branco. */
+  readonly labelColor: string;
 }
 
 /** Barras proporcionais a 255, o máximo teórico (§7.8). */
-export function StatsPanel({ stats, color }: StatsPanelProps) {
+export function StatsPanel({ stats, color, labelColor }: StatsPanelProps) {
   return (
     <div className={styles.stats}>
       {stats.map((stat) => (
@@ -28,6 +31,7 @@ export function StatsPanel({ stats, color }: StatsPanelProps) {
           value={stat.base}
           max={MAX_BASE_STAT}
           color={color}
+          labelColor={labelColor}
         />
       ))}
     </div>

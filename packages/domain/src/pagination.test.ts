@@ -45,4 +45,12 @@ describe('paginate (ADR-003)', () => {
     expect(page.pageSize).toBe(1);
     expect(page.items).toEqual([1]);
   });
+
+  it('é total: NaN e Infinity saturam em 1 (JSON com page null seria mentira)', () => {
+    expect(paginate(pokedex, Number.NaN, Number.NaN)).toMatchObject({ page: 1, pageSize: 1 });
+    expect(paginate(pokedex, Number.POSITIVE_INFINITY, 24)).toMatchObject({
+      page: 1,
+      pageSize: 24,
+    });
+  });
 });

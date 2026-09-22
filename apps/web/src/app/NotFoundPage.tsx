@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Card, EmptyState } from '../shared/ui';
-import { paths } from './router';
+import { paths } from '../shared/routes';
 
 export function NotFoundPage() {
   return (

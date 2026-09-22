@@ -1,6 +1,7 @@
 const FORM_FEED = /\f/g;
 const WHITESPACE_RUN = /\s+/g;
 const DIACRITICS = /\p{Diacritic}/gu;
+const APOSTROPHES = /['‘’ʼ`]/g;
 const NON_ALPHANUMERIC_RUN = /[^a-z0-9]+/g;
 const EDGE_HYPHENS = /^-+|-+$/g;
 const HYPHEN = '-';
@@ -34,14 +35,17 @@ function capitalize(word: string): string {
 }
 
 /**
- * Minúsculas → NFD → sem diacríticos → não-alfanumérico vira `-` → sem `-` nas pontas.
- * `"Mr. Mime"`, `"mr mime"` e `"MR-MIME"` casam com o slug `mr-mime`; `"Flabébé"` com `flabebe`.
+ * Minúsculas → NFD → sem diacríticos → apóstrofo **some** → demais não-alfanuméricos viram `-` →
+ * sem `-` nas pontas. `"Mr. Mime"`, `"mr mime"` e `"MR-MIME"` casam com o slug `mr-mime`;
+ * `"Flabébé"` com `flabebe`. O apóstrofo é apagado, e não hifenizado, porque a PokéAPI também o
+ * apaga: `Farfetch'd` é o slug `farfetchd` — hifenizar daria `farfetch-d` e a busca não acharia.
  */
 export function normalizeForSearch(value: string): string {
   return value
     .toLowerCase()
     .normalize('NFD')
     .replace(DIACRITICS, '')
+    .replace(APOSTROPHES, '')
     .replace(NON_ALPHANUMERIC_RUN, HYPHEN)
     .replace(EDGE_HYPHENS, '');
 }

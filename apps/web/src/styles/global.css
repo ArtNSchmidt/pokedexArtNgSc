@@ -19,7 +19,6 @@ body {
   color: var(--gray-dark);
   font: var(--font-body-1);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 h1,

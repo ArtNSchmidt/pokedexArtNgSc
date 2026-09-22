@@ -1,6 +1,6 @@
 import type { PokemonSummary } from '@pokedex/contracts';
 import { Link } from 'react-router-dom';
-import { paths } from '../../app/router';
+import { paths } from '../../shared/routes';
 import { formatPokedexNumber } from '../../shared/format';
 import { Card } from '../../shared/ui';
 import styles from './PokemonCard.module.css';

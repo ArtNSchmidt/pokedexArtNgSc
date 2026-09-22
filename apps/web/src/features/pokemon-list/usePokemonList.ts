@@ -1,6 +1,7 @@
 import {
   generationNameSchema,
   LIST_DEFAULT_PAGE,
+  SEARCH_MAX_LENGTH,
   typeNameSchema,
   type GenerationName,
   type TypeName,
@@ -33,7 +34,8 @@ export function readFilters(searchParams: URLSearchParams): ListFilters {
   const page = Number(searchParams.get(PARAM_PAGE));
 
   return {
-    q: searchParams.get(PARAM_Q) ?? '',
+    // Limitado ao máximo do contrato: uma URL digitada à mão com 100 caracteres viraria 400.
+    q: (searchParams.get(PARAM_Q) ?? '').slice(0, SEARCH_MAX_LENGTH),
     type: type.success ? type.data : '',
     generation: generation.success ? generation.data : '',
     page: Number.isInteger(page) && page >= LIST_DEFAULT_PAGE ? page : LIST_DEFAULT_PAGE,
@@ -51,12 +53,21 @@ export function writeFilters(filters: ListFilters): URLSearchParams {
 }
 
 function toQueryParams(filters: ListFilters): PokemonListParams {
+  // O termo vai aparado para a API: busca só com espaços equivale a busca nenhuma.
+  const term = filters.q.trim();
+
   return {
     page: filters.page,
-    ...(filters.q.length > 0 ? { q: filters.q } : {}),
+    ...(term.length > 0 ? { q: term } : {}),
     ...(filters.type !== '' ? { type: filters.type } : {}),
     ...(filters.generation !== '' ? { generation: filters.generation } : {}),
   };
+}
+
+/** Aplica o patch sobre os filtros que estiverem na URL no momento da navegação. */
+function mergeFilters(patch: Partial<ListFilters>) {
+  return (current: URLSearchParams): URLSearchParams =>
+    writeFilters({ ...readFilters(current), ...patch });
 }
 
 export function usePokemonList() {
@@ -64,9 +75,18 @@ export function usePokemonList() {
   const filters = readFilters(searchParams);
   const [searchText, setSearchText] = useState(filters.q);
 
-  const updateFilters = useCallback(
-    (patch: Partial<ListFilters>, options: { replace: boolean }) => {
-      setSearchParams((current) => writeFilters({ ...readFilters(current), ...patch }), options);
+  /** Navegação que entra no histórico: o botão voltar desfaz a troca de filtro ou de página. */
+  const pushFilters = useCallback(
+    (patch: Partial<ListFilters>) => {
+      setSearchParams(mergeFilters(patch), { replace: false });
+    },
+    [setSearchParams],
+  );
+
+  /** Substitui a entrada atual: digitar na busca não deve gerar um item de histórico por tecla. */
+  const replaceFilters = useCallback(
+    (patch: Partial<ListFilters>) => {
+      setSearchParams(mergeFilters(patch), { replace: true });
     },
     [setSearchParams],
   );
@@ -74,36 +94,36 @@ export function usePokemonList() {
   // Trocar filtro volta para a página 1 — senão aparece "página 7 de 2" (§7.8).
   const setType = useCallback(
     (type: TypeName | '') => {
-      updateFilters({ type, page: LIST_DEFAULT_PAGE }, { replace: false });
+      pushFilters({ type, page: LIST_DEFAULT_PAGE });
     },
-    [updateFilters],
+    [pushFilters],
   );
   const setGeneration = useCallback(
     (generation: GenerationName | '') => {
-      updateFilters({ generation, page: LIST_DEFAULT_PAGE }, { replace: false });
+      pushFilters({ generation, page: LIST_DEFAULT_PAGE });
     },
-    [updateFilters],
+    [pushFilters],
   );
   const setPage = useCallback(
     (page: number) => {
-      updateFilters({ page }, { replace: false });
+      pushFilters({ page });
     },
-    [updateFilters],
+    [pushFilters],
   );
   const clearFilters = useCallback(() => {
-    updateFilters({ type: '', generation: '', page: LIST_DEFAULT_PAGE }, { replace: false });
-  }, [updateFilters]);
+    pushFilters({ type: '', generation: '', page: LIST_DEFAULT_PAGE });
+  }, [pushFilters]);
 
-  // O que se digita vai para a URL após a pausa; `replace` evita um histórico por tecla.
+  // O que se digita vai para a URL após a pausa.
   useEffect(() => {
     if (searchText === filters.q) return undefined;
     const timer = setTimeout(() => {
-      updateFilters({ q: searchText, page: LIST_DEFAULT_PAGE }, { replace: true });
+      replaceFilters({ q: searchText, page: LIST_DEFAULT_PAGE });
     }, SEARCH_DEBOUNCE_MS);
     return () => {
       clearTimeout(timer);
     };
-  }, [searchText, filters.q, updateFilters]);
+  }, [searchText, filters.q, replaceFilters]);
 
   // O caminho inverso: voltar no histórico muda a URL e o campo acompanha. Ajuste de estado
   // derivado durante a renderização (padrão do React), sem efeito nem render em cascata.

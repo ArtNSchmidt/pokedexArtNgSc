@@ -77,7 +77,7 @@ describe('PokeApiPokemonRepository', () => {
       expect(detail.abilities.map((ability) => ability.name)).toEqual(['blaze', 'solar-power']);
     });
 
-    it('busca espécie, habilidades e tipos em paralelo e cacheia tudo', async () => {
+    it('cacheia espécie, habilidades e relações de dano: a segunda visita não vai à rede', async () => {
       await repository.getPokemonDetail('charizard');
       const callsAfterFirst = client.calls.length;
       await repository.getPokemonDetail('charizard');

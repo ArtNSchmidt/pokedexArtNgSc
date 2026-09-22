@@ -20,3 +20,16 @@ de catálogo (§7.7).
 
 **Resolução (A5, mesma data).** Aplicado em `main.tsx`; `CatalogPage.tsx` removida na integração
 da onda 4.
+
+## 2026-09-22 — Integração → A1: parâmetro em branco não pode virar 400
+
+**Pedido.** `?q=%20%20`, `?page=` e `?pageSize=` respondiam `400 VALIDATION_ERROR`, enquanto `?q=`,
+`?type=` e `?generation=` já contavam como ausentes. Na prática, digitar só espaços na busca
+derrubava a lista inteira em tela de erro.
+
+**Proposta.** `listQuerySchema` passa a tratar **qualquer parâmetro em branco** (vazio ou só com
+espaços) como não informado, em todos os campos. Mudança compatível: nenhuma query válida hoje
+muda de resultado.
+
+**Resolução (A1, mesma data).** Aceito e publicado em `packages/contracts/src/pokemon.ts`
+(`blankAsUndefined`), com teste em `fixtures.test.ts`.

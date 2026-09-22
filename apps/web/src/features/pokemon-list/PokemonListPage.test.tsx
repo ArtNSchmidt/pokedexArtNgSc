@@ -1,4 +1,4 @@
-import { emptyListPageFixture, listPageFixture } from '@pokedex/contracts';
+import { emptyListPageFixture, listPageFixture, SEARCH_MAX_LENGTH } from '@pokedex/contracts';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { apiError, installFakeApi, ok, renderApp } from '../testing/renderApp';
@@ -61,6 +61,53 @@ describe('PokemonListPage (§7.8)', () => {
       expect(api.lastCall('/pokemon')?.searchParams.get('q')).toBe('pika');
     });
     expect(api.lastCall('/pokemon')?.searchParams.get('page')).toBe('1');
+  });
+
+  it('busca só com espaços não vira filtro: a lista continua completa', async () => {
+    const api = installFakeApi({ '/pokemon': ok(listPageFixture) });
+    renderApp(pages, '/?q=%20%20%20');
+    await screen.findByText('Bulbasaur');
+
+    expect(api.lastCall('/pokemon')?.searchParams.get('q')).toBeNull();
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+
+  it('q acima do limite do contrato é aparado antes de ir ao BFF', async () => {
+    const api = installFakeApi({ '/pokemon': ok(listPageFixture) });
+    renderApp(pages, `/?q=${'x'.repeat(SEARCH_MAX_LENGTH + 10)}`);
+    await screen.findByText('Bulbasaur');
+
+    expect(api.lastCall('/pokemon')?.searchParams.get('q')).toHaveLength(SEARCH_MAX_LENGTH);
+  });
+
+  it('página além do total explica o que houve e oferece caminho de volta', async () => {
+    installFakeApi({
+      '/pokemon': ok({ ...listPageFixture, items: [], page: 99, total: 1025, totalPages: 43 }),
+    });
+    const { router } = renderApp(pages, '/?page=99');
+
+    expect(await screen.findByText('Página sem resultados')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Ir para a primeira página' }));
+
+    await waitFor(() => {
+      expect(router.state.location.search).toBe('');
+    });
+  });
+
+  it('trocar o filtro de tipo volta para a página 1', async () => {
+    const api = installFakeApi({ '/pokemon': ok(listPageFixture) });
+    const { router } = renderApp(pages, '/?page=3');
+    await screen.findByText('Bulbasaur');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Filtros' }));
+    fireEvent.change(await screen.findByLabelText('Tipo'), { target: { value: 'fire' } });
+
+    await waitFor(() => {
+      expect(router.state.location.search).toBe('?type=fire');
+    });
+    await waitFor(() => {
+      expect(api.lastCall('/pokemon')?.searchParams.get('page')).toBe('1');
+    });
   });
 
   it('filtros na URL chegam ao BFF e valores inválidos são ignorados', async () => {

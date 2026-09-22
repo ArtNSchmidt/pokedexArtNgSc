@@ -1,7 +1,7 @@
 import { POKEDEX_FIRST_ID, POKEDEX_LAST_ID, type PokemonDetail } from '@pokedex/contracts';
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { paths } from '../../app/router';
+import { paths } from '../../shared/routes';
 import { describeError, isNotFoundError } from '../../shared/api/client';
 import {
   formatGeneration,
@@ -71,13 +71,13 @@ function DetailView({ pokemon }: { readonly pokemon: PokemonDetail }) {
   const primaryType = pokemon.types[0] ?? 'normal';
   const color = `var(--type-${primaryType})`;
   const ink = `var(--type-${primaryType}-ink)`;
+  // Sobre o card branco a cor viva do tipo chega a 1,5:1 (electric): texto usa a variante escura.
+  const textColor = `var(--type-${primaryType}-deep)`;
 
   return (
     <article className={styles.page} style={{ background: color, color: ink }}>
       <header className={styles.header}>
-        <Link to={paths.list} aria-label="Voltar para a lista" className={styles.back}>
-          <ArrowBackIcon />
-        </Link>
+        <BackLink />
         <h1 className={cx('t-headline', styles.title)}>{pokemon.displayName}</h1>
         <span className={cx('t-subtitle-2', styles.number)}>{formatPokedexNumber(pokemon.id)}</span>
       </header>
@@ -109,19 +109,19 @@ function DetailView({ pokemon }: { readonly pokemon: PokemonDetail }) {
           )}
         </div>
 
-        <SectionTitle color={color}>Sobre</SectionTitle>
+        <SectionTitle color={textColor}>Sobre</SectionTitle>
         <AboutPanel pokemon={pokemon} />
 
-        <SectionTitle color={color}>Estatísticas base</SectionTitle>
-        <StatsPanel stats={pokemon.stats} color={color} />
+        <SectionTitle color={textColor}>Estatísticas base</SectionTitle>
+        <StatsPanel stats={pokemon.stats} color={color} labelColor={textColor} />
 
-        <SectionTitle color={color}>Fraquezas e resistências</SectionTitle>
+        <SectionTitle color={textColor}>Fraquezas e resistências</SectionTitle>
         <WeaknessPanel weaknesses={pokemon.weaknesses} />
 
-        <SectionTitle color={color}>Habilidades</SectionTitle>
+        <SectionTitle color={textColor}>Habilidades</SectionTitle>
         <AbilitiesPanel abilities={pokemon.abilities} />
 
-        <SectionTitle color={color}>Evolução</SectionTitle>
+        <SectionTitle color={textColor}>Evolução</SectionTitle>
         <EvolutionPanel
           steps={pokemon.evolution}
           stages={pokemon.evolutionStages}
@@ -129,6 +129,15 @@ function DetailView({ pokemon }: { readonly pokemon: PokemonDetail }) {
         />
       </Card>
     </article>
+  );
+}
+
+/** O mesmo link de volta aparece no detalhe, no erro e no skeleton — um componente, três usos. */
+function BackLink() {
+  return (
+    <Link to={paths.list} aria-label="Voltar para a lista" className={styles.back}>
+      <ArrowBackIcon />
+    </Link>
   );
 }
 
@@ -251,9 +260,7 @@ function NeutralPage({ children }: { readonly children: ReactNode }) {
   return (
     <div className={styles.neutral}>
       <header className={styles.header}>
-        <Link to={paths.list} aria-label="Voltar para a lista" className={styles.back}>
-          <ArrowBackIcon />
-        </Link>
+        <BackLink />
         <h1 className="t-headline">Pokédex</h1>
       </header>
       <Card elevation="inner" className={styles.card}>
@@ -267,9 +274,7 @@ function DetailSkeleton() {
   return (
     <div className={styles.neutral} role="status" aria-label="Carregando Pokémon">
       <header className={styles.header}>
-        <Link to={paths.list} aria-label="Voltar para a lista" className={styles.back}>
-          <ArrowBackIcon />
-        </Link>
+        <BackLink />
         <Skeleton width="10rem" height="1.5rem" className={styles.skeletonOnColor} />
       </header>
       <div className={styles.artworkRow}>

@@ -36,8 +36,10 @@
   --type-fairy: #e69eac;
 
   /*
-   * Cor do texto sobre cada tipo. A Figma usa branco em todos; branco só alcança 3:1 sobre os
-   * fundos escuros, então os claros recebem `--gray-dark` para o chip continuar legível.
+   * Cor do texto SOBRE o fundo do tipo (chip, cabeçalho do detalhe). A Figma usa branco em todos;
+   * branco só passa de 4,5:1 nos cinco fundos escuros, então o resto recebe `--gray-dark`.
+   * Medido: fighting 5,9 · poison 5,6 · ghost 6,1 · dragon 5,7 · dark 6,5 com branco; os demais
+   * ficam entre 5,2 e 10,7 com `--gray-dark`.
    */
   --type-normal-ink: var(--gray-dark);
   --type-fighting-ink: var(--white);
@@ -49,14 +51,38 @@
   --type-ghost-ink: var(--white);
   --type-steel-ink: var(--gray-dark);
   --type-fire-ink: var(--gray-dark);
-  --type-water-ink: var(--white);
+  --type-water-ink: var(--gray-dark);
   --type-grass-ink: var(--gray-dark);
   --type-electric-ink: var(--gray-dark);
-  --type-psychic-ink: var(--white);
+  --type-psychic-ink: var(--gray-dark);
   --type-ice-ink: var(--gray-dark);
   --type-dragon-ink: var(--white);
   --type-dark-ink: var(--white);
   --type-fairy-ink: var(--gray-dark);
+
+  /*
+   * Cor do tipo para TEXTO SOBRE BRANCO (títulos de seção e rótulos de stat no detalhe). A cor
+   * viva da Figma chega a 1,5:1 sobre branco (`electric`); cada variante aqui é a mesma matiz
+   * escurecida até ≥ 4,5:1. O fundo dos chips e o preenchimento das barras continuam vivos.
+   */
+  --type-normal-deep: #7a785b;
+  --type-fighting-deep: #c12239;
+  --type-flying-deep: #7c6baf;
+  --type-poison-deep: #a43e9e;
+  --type-ground-deep: #857440;
+  --type-rock-deep: #887625;
+  --type-bug-deep: #727c18;
+  --type-ghost-deep: #70559b;
+  --type-steel-deep: #737583;
+  --type-fire-deep: #b85e25;
+  --type-water-deep: #5076bc;
+  --type-grass-deep: #4b842f;
+  --type-electric-deep: #8b741b;
+  --type-psychic-deep: #cb456b;
+  --type-ice-deep: #597c81;
+  --type-dragon-deep: #7037ff;
+  --type-dark-deep: #75574c;
+  --type-fairy-deep: #986872;
 
   /* Tipografia (Poppins); corpo mínimo de 12 px por legibilidade em web */
   --font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;

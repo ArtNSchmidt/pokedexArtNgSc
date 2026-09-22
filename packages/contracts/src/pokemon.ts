@@ -126,21 +126,29 @@ export const LIST_DEFAULT_PAGE_SIZE = 24;
 export const LIST_MAX_PAGE_SIZE = 60;
 export const SEARCH_MAX_LENGTH = 40;
 
-const emptyStringAsUndefined = (value: unknown): unknown => (value === '' ? undefined : value);
+/**
+ * Parâmetro em branco conta como **não informado**: `?q=`, `?q=%20%20` e `?page=` valem o mesmo
+ * que omitir. Sem isso, uma URL digitada à mão (ou uma busca só com espaços) viraria `400`.
+ */
+const blankAsUndefined = (value: unknown): unknown => {
+  if (typeof value !== 'string') return value;
+  const trimmed = value.trim();
+  return trimmed.length === 0 ? undefined : trimmed;
+};
 
 /**
  * Query de `GET /pokemon` (§6.1). `coerce` porque query string é sempre texto; `page=abc` vira
  * `NaN` e falha no `int()`, então nunca chega ao caso de uso. `q`, `type` e `generation` são
- * combináveis e se aplicam como interseção. Parâmetro vazio (`?q=`) conta como ausente.
+ * combináveis e se aplicam como interseção.
  */
 export const listQuerySchema = z.object({
-  page: z.coerce.number().int().min(1).default(LIST_DEFAULT_PAGE),
-  pageSize: z.coerce.number().int().min(1).max(LIST_MAX_PAGE_SIZE).default(LIST_DEFAULT_PAGE_SIZE),
-  q: z.preprocess(
-    emptyStringAsUndefined,
-    z.string().trim().min(1).max(SEARCH_MAX_LENGTH).optional(),
+  page: z.preprocess(blankAsUndefined, z.coerce.number().int().min(1).default(LIST_DEFAULT_PAGE)),
+  pageSize: z.preprocess(
+    blankAsUndefined,
+    z.coerce.number().int().min(1).max(LIST_MAX_PAGE_SIZE).default(LIST_DEFAULT_PAGE_SIZE),
   ),
-  type: z.preprocess(emptyStringAsUndefined, typeNameSchema.optional()),
-  generation: z.preprocess(emptyStringAsUndefined, generationNameSchema.optional()),
+  q: z.preprocess(blankAsUndefined, z.string().min(1).max(SEARCH_MAX_LENGTH).optional()),
+  type: z.preprocess(blankAsUndefined, typeNameSchema.optional()),
+  generation: z.preprocess(blankAsUndefined, generationNameSchema.optional()),
 });
 export type ListQuery = z.infer<typeof listQuerySchema>;

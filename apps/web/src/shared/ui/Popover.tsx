@@ -24,7 +24,12 @@ export function Popover({ open, onClose, label, triggerRef, className, children 
     if (!open) return undefined;
 
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') {
+        // Devolve o foco ao gatilho: sem isso ele cairia no `body` e a navegação por teclado
+        // recomeçaria do topo da página.
+        triggerRef?.current?.focus();
+        onClose();
+      }
     };
     const closeOnOutsideClick = (event: MouseEvent) => {
       const target = event.target;

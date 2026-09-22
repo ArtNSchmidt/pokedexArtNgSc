@@ -2,7 +2,7 @@
  * Formatação de apresentação em PT-BR. Não há regra de negócio aqui: os valores já chegam
  * calculados pelo BFF (metros, quilos, multiplicadores); isto só decide como mostrá-los.
  */
-import type { DamageMultiplier } from '@pokedex/contracts';
+import { GENERATION_OPTIONS, type DamageMultiplier, type GenerationName } from '@pokedex/contracts';
 
 const PT_BR_ONE_DECIMAL = new Intl.NumberFormat('pt-BR', {
   minimumFractionDigits: 1,
@@ -52,10 +52,13 @@ export function orPlaceholder(value: string | null): string {
   return value ?? EMPTY_PLACEHOLDER;
 }
 
-/** `generation-iv` → `Geração IV`. */
-export function formatGeneration(name: string): string {
-  const numeral = name.replace(/^generation-/, '').toUpperCase();
-  return `Geração ${numeral}`;
+/**
+ * `generation-iv` → `Geração IV`, lendo o rótulo publicado pelo contrato (ADR-004): derivar o
+ * texto aqui criaria um segundo dicionário para o mesmo conceito, que o filtro e o detalhe
+ * veriam divergir. O slug só aparece se o contrato ganhar uma geração sem rótulo.
+ */
+export function formatGeneration(name: GenerationName): string {
+  return GENERATION_OPTIONS.find((option) => option.name === name)?.displayName ?? name;
 }
 
 /** Slugs da API (`level-up`, `water-stone`, `eterna-forest`) como texto legível. */

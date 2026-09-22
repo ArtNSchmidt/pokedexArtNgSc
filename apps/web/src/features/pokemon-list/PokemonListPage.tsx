@@ -1,10 +1,12 @@
 import {
+  LIST_DEFAULT_PAGE,
   LIST_DEFAULT_PAGE_SIZE,
   SEARCH_MAX_LENGTH,
   type PokemonListPage as ListPage,
 } from '@pokedex/contracts';
 import { describeError } from '../../shared/api/client';
 import {
+  Button,
   Card,
   cx,
   EmptyState,
@@ -85,6 +87,24 @@ function Results({ page, isStale, onPageChange }: ResultsProps) {
         title="Nenhum Pokémon encontrado"
         description="Ajuste a busca ou os filtros e tente de novo."
       />
+    );
+  }
+
+  // Há resultados, mas não nesta página: acontece com `?page=99` digitado à mão.
+  if (page.items.length === 0) {
+    return (
+      <EmptyState
+        title="Página sem resultados"
+        description={`A busca tem ${String(page.total)} Pokémon em ${String(page.totalPages)} páginas.`}
+      >
+        <Button
+          onClick={() => {
+            onPageChange(LIST_DEFAULT_PAGE);
+          }}
+        >
+          Ir para a primeira página
+        </Button>
+      </EmptyState>
     );
   }
 

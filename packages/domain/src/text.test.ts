@@ -46,6 +46,12 @@ describe('normalizeForSearch', () => {
     ['Flabébé', 'flabebe'],
     ['  Pikachu  ', 'pikachu'],
     ['---', ''],
+    // O apóstrofo some, como no slug da API (`farfetchd`); hifenizá-lo quebraria a busca.
+    ["Farfetch'd", 'farfetchd'],
+    ['Farfetch’d', 'farfetchd'],
+    ["Sirfetch'd", 'sirfetchd'],
+    ['Type: Null', 'type-null'],
+    ['Porygon-Z', 'porygon-z'],
   ])('%s → %s', (value, expected) => {
     expect(normalizeForSearch(value)).toBe(expected);
   });

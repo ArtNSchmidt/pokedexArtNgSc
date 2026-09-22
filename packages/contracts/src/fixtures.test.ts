@@ -96,12 +96,19 @@ describe('listQuerySchema', () => {
     expect(parsed.pageSize).toBe(12);
   });
 
-  it('trata parâmetro vazio como ausente', () => {
-    const parsed = listQuerySchema.parse({ q: '', type: '', generation: '' });
+  it('trata parâmetro vazio ou só com espaços como ausente', () => {
+    const parsed = listQuerySchema.parse({ q: '   ', type: '', generation: '' });
 
     expect(parsed.q).toBeUndefined();
     expect(parsed.type).toBeUndefined();
     expect(parsed.generation).toBeUndefined();
+  });
+
+  it('page e pageSize em branco caem no padrão, não em 400', () => {
+    const parsed = listQuerySchema.parse({ page: '', pageSize: '  ' });
+
+    expect(parsed.page).toBe(LIST_DEFAULT_PAGE);
+    expect(parsed.pageSize).toBe(LIST_DEFAULT_PAGE_SIZE);
   });
 
   it('apara espaços e aceita q entre 1 e 40 caracteres', () => {

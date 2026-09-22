@@ -7,9 +7,11 @@ const TIME_OF_DAY_LABELS: Readonly<Record<string, string>> = {
   dusk: 'ao entardecer',
 };
 
+const LEVEL_UP_LABEL = 'Sobe de nível';
+const USE_ITEM_LABEL = 'Usar item';
+
+/** Gatilhos sem tratamento próprio; os demais caem em `humanizeSlug`. */
 const TRIGGER_LABELS: Readonly<Record<string, string>> = {
-  'level-up': 'Sobe de nível',
-  'use-item': 'Usar item',
   trade: 'Troca',
   shed: 'Ao evoluir com espaço na equipe',
 };
@@ -23,9 +25,7 @@ const UNKNOWN_CONDITION = 'Condição especial';
 export function describeEvolutionStep(step: EvolutionStep): string {
   if (step.trigger === null) return UNKNOWN_CONDITION;
   if (step.trigger === 'use-item') {
-    return step.item === null
-      ? (TRIGGER_LABELS['use-item'] ?? UNKNOWN_CONDITION)
-      : `Usar ${humanizeSlug(step.item)}`;
+    return step.item === null ? USE_ITEM_LABEL : `Usar ${humanizeSlug(step.item)}`;
   }
   if (step.trigger === 'level-up') return describeLevelUp(step);
 
@@ -41,5 +41,5 @@ function describeLevelUp(step: EvolutionStep): string {
   if (step.item !== null) parts.push(`segurando ${humanizeSlug(step.item)}`);
   if (step.timeOfDay !== null) parts.push(TIME_OF_DAY_LABELS[step.timeOfDay] ?? step.timeOfDay);
 
-  return parts.length === 0 ? (TRIGGER_LABELS['level-up'] ?? UNKNOWN_CONDITION) : parts.join(' ');
+  return parts.length === 0 ? LEVEL_UP_LABEL : parts.join(' ');
 }

@@ -10,11 +10,6 @@ export interface AppPages {
   readonly DetailPage: ComponentType;
 }
 
-export const paths = {
-  list: '/',
-  detail: (idOrName: string | number): string => `/pokemon/${encodeURIComponent(String(idOrName))}`,
-} as const;
-
 export function createAppRoutes(pages: AppPages): RouteObject[] {
   return [
     {

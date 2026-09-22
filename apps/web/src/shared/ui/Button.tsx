@@ -1,5 +1,4 @@
-import type { ComponentProps, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import type { ComponentProps } from 'react';
 import styles from './Button.module.css';
 import { cx } from './cx';
 
@@ -17,20 +16,4 @@ interface ButtonProps extends Omit<ComponentProps<'button'>, 'className'> {
  */
 export function Button({ variant = 'primary', className, type = 'button', ...rest }: ButtonProps) {
   return <button type={type} className={cx(styles.button, styles[variant], className)} {...rest} />;
-}
-
-interface IconLinkProps {
-  readonly to: string;
-  readonly label: string;
-  readonly className?: string | undefined;
-  readonly children: ReactNode;
-}
-
-/** Mesmo visual do botão de ícone, para navegação (voltar, anterior/próximo). */
-export function IconLink({ to, label, className, children }: IconLinkProps) {
-  return (
-    <Link to={to} aria-label={label} className={cx(styles.button, styles.icon, className)}>
-      {children}
-    </Link>
-  );
 }
