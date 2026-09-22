@@ -85,10 +85,10 @@ curl -s localhost:3333/api/v1/generations | node -e "console.log(JSON.parse(requ
 
 ## Status
 
-| Onda | Agente                                               | Estado       |
-| ---- | ---------------------------------------------------- | ------------ |
-| 0    | A0 — fundação e tooling                              | concluído    |
-| 1    | A1 — contratos                                       | pendente     |
-| 2    | A2 — domínio · A3 — adapter PokéAPI · A5 — shell web | pendente     |
-| 3    | A4 — API HTTP · A6 — telas                           | pendente     |
-| 4    | integração e verificação final                       | pendente     |
+| Onda | Agente                                               | Estado    |
+| ---- | ---------------------------------------------------- | --------- |
+| 0    | A0 — fundação e tooling                              | concluído |
+| 1    | A1 — contratos                                       | pendente  |
+| 2    | A2 — domínio · A3 — adapter PokéAPI · A5 — shell web | pendente  |
+| 3    | A4 — API HTTP · A6 — telas                           | pendente  |
+| 4    | integração e verificação final                       | pendente  |
