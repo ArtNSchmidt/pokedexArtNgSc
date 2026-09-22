@@ -1,7 +1,11 @@
 import { apiErrorSchema, type ApiErrorCode } from '@pokedex/contracts';
 import type { ZodType } from 'zod';
 
-/** Prefixo do BFF; em dev o Vite faz proxy para `:3333`, em produção o mesmo host serve os dois. */
+/**
+ * Prefixo do BFF. O caminho é sempre relativo: em desenvolvimento o proxy do Vite e em produção os
+ * rewrites de `apps/web/vercel.json` encaminham `/api` ao Fastify. O browser nunca fala com outra
+ * origem, então não há preflight de CORS nem URL de backend embutida no bundle (ADR-008).
+ */
 export const API_BASE_PATH = '/api/v1';
 
 /** Erro devolvido pelo BFF no formato de §6.3. `message` vem do servidor e é segura para exibir. */
