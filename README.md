@@ -61,6 +61,20 @@ está em [`docs/AGENTS.md`](docs/AGENTS.md), e o que cada etapa entregou, em
 encontrados, correções e o que foi examinado e mantido — está em
 [`docs/handoff/revisao-final.md`](docs/handoff/revisao-final.md).
 
+## Deploy
+
+| Peça  | Onde                                                | Configuração              |
+| ----- | --------------------------------------------------- | ------------------------- |
+| Front | Vercel · <https://pokedex-art-ng-sc-web.vercel.app> | Root Directory `apps/web` |
+| BFF   | Render · <https://pokedexartngsc.onrender.com>      | Root Directory `apps/api` |
+
+O browser fala **só** com o domínio da Vercel: `apps/web/vercel.json` encaminha `/api/*` ao Render
+e devolve `index.html` para as rotas do React Router. Sem isso, `/api/v1/pokemon` e `/pokemon/1`
+respondem `404`. O porquê está em
+[ADR-008](docs/adr/0008-deploy-vercel-render-com-rewrite-same-origin.md).
+
+Trocar o backend de endereço é editar o `destination` do primeiro rewrite — o bundle não muda.
+
 ## Limitações conhecidas
 
 - **Textos em inglês.** A PokéAPI não tem tradução para português (`pokemon-species/1` tem 28
