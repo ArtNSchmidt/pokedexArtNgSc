@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const API_ERROR_CODES = [
   'VALIDATION_ERROR',
   'POKEMON_NOT_FOUND',
+  'ROUTE_NOT_FOUND',
   'UPSTREAM_UNAVAILABLE',
   'INTERNAL_ERROR',
 ] as const;
@@ -22,10 +23,15 @@ export const apiErrorSchema = z.object({
 });
 export type ApiError = z.infer<typeof apiErrorSchema>;
 
-/** Status HTTP de cada código, para o error handler (A4) e o cliente (A5) concordarem. */
+/**
+ * Status HTTP de cada código, para o error handler (A4) e o cliente (A5) concordarem.
+ * `ROUTE_NOT_FOUND` foi acrescentado a pedido do A4 (`docs/handoff/requests.md`): §6.3 não cobria
+ * rota inexistente, e responder `POKEMON_NOT_FOUND` para `/nope` seria mentira.
+ */
 export const HTTP_STATUS_BY_ERROR_CODE: Readonly<Record<ApiErrorCode, 400 | 404 | 500 | 502>> = {
   VALIDATION_ERROR: 400,
   POKEMON_NOT_FOUND: 404,
+  ROUTE_NOT_FOUND: 404,
   UPSTREAM_UNAVAILABLE: 502,
   INTERNAL_ERROR: 500,
 };
