@@ -1,0 +1,38 @@
+# Mantém o BFF do Render fora da hibernação. O plano free derruba a instância após 15 min sem
+# tráfego, e o spin-up seguinte custa cerca de um minuto na cara de quem abriu a Pokédex.
+name: Keep-alive
+
+on:
+  schedule:
+    # A cada 10 min, deslocado em 3 para fugir do pico do início da hora: a documentação do GitHub
+    # avisa que execuções agendadas atrasam sob carga e podem ser descartadas. A folga de 5 min
+    # sobre o limite de 15 absorve esse atraso — um intervalo de 16 chegaria sempre tarde demais.
+    - cron: '3,13,23,33,43,53 * * * *'
+  workflow_dispatch:
+
+# Se a fila atrasar e empilhar execuções, só a mais recente interessa: o ping não é acumulativo.
+concurrency:
+  group: keepalive
+  cancel-in-progress: true
+
+# O job não lê nem escreve nada no repositório; nega todos os escopos do GITHUB_TOKEN.
+permissions: {}
+
+jobs:
+  ping:
+    name: acorda o BFF
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Sem checkout: o job não precisa do código, e cada segundo economizado é cota.
+      # O alvo é o Render direto, nunca o domínio da Vercel — um GET atrás do rewrite poderia ser
+      # servido pelo cache da edge sem jamais tocar a instância, que é justamente o que se quer
+      # evitar. `/health` também é a única rota que o BFF isenta do `cache-control` (server.ts).
+      - name: GET /api/v1/health
+        env:
+          HEALTH_URL: https://pokedexartngsc.onrender.com/api/v1/health
+        run: |
+          curl --fail --silent --show-error \
+            --max-time 120 --retry 3 --retry-all-errors --retry-delay 15 \
+            --write-out 'status=%{http_code} tempo=%{time_total}s\n' \
+            "$HEALTH_URL"
